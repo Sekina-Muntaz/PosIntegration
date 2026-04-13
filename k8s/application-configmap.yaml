@@ -10,11 +10,17 @@ data:
     spring:
       application:
         name: countrytest
-
+    # Use this to test on h2 in the event that you have challenges installing mysql
+    # Use this to see h2 console http://localhost:8085/h2-console
+    #  datasource:
+    #    url: jdbc:h2:mem:testdb
+    #    driver-class-name: org.h2.Driver
+    #    username: sa
       datasource:
-        url: jdbc:h2:mem:testdb
-        driver-class-name: org.h2.Driver
-        username: sa
+        url: com.mysql.cj.jdbc.Driver
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: root
 
       jpa:
         hibernate:
