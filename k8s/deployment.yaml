@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: countrytest
+  labels:
+    app: countrytest
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: countrytest
+  template:
+    metadata:
+      labels:
+        app: countrytest
+    spec:
+      containers:
+        - name: countrytest
+          image: your-registry/countrytest:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8085
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: /app/application.yaml
+              subPath: application.yaml
+      volumes:
+        - name: config
+          configMap:
+            name: countrytest-config
+            items:
+              - key: application.yaml
+                path: application.yaml
