@@ -1,0 +1,24 @@
+FROM openjdk:17
+
+#Make Directory
+RUN mkdir /app
+RUN mkdir /app/logs
+RUN echo "Africa/Nairobi" > /etc/timezone
+#RUN dpkg-reconfigure -f noninteractive tzdata
+#Switch to /app directory
+
+WORKDIR application
+ARG JAR_FILE=target/*.jar
+
+# COPY JAR FILE
+COPY ${JAR_FILE} application.jar
+
+# CONFIG PROPERTIES | OPTIONAL
+COPY src/main/resources/application.properties application.properties
+
+
+# RUN APPLICATION WHEN CONTAINER LAUNCHES
+CMD ["java","-jar","application.jar","--spring.config.location=file:application.properties"]
+
+
+
